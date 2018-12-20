@@ -1,0 +1,13 @@
+*** Settings ***
+Test Teardown
+
+*** Test Cases ***
+1
+    ${a}    Set Variable    1000
+    log    ${a}
+    log    ${TEST_STATUS}
+
+*** Keywords ***
+qwe
+    log    ${TEST_STATUS}
+    [Teardown]    ${TEST_STATUS}

@@ -1,0 +1,102 @@
+*** Settings ***
+Suite Teardown
+Test Teardown
+Library           DateTime
+Library           Collections
+Library           requests
+Library           RequestsLibrary
+Library           Selenium2Library
+Resource          model.robot
+
+*** Test Cases ***
+1
+    ${table}    Set Variable    a    b    c    \    f
+    log    ${table}
+    : FOR    ${test}    IN    @{table}
+    \    Run Keyword If    '${test}'==''    Remove Values From List    ${table}    ${test}
+    Comment    Remove Values From List    ${table}    a
+    log    ${table}
+    Evaluate    os.system('python d:/mail.py')    os
+
+2
+    ${test}    Set Variable    100
+    log    ${test}
+    ${time1}    Get Time
+    Comment    ${time2}    Get Current Date
+    ${time2}    Add Time To Date    ${time1}    -1 days
+    log    ${time1}
+    log    ${time2}
+    Comment    Comment    Should Contain    ${time}    2018-06-07
+
+3
+    ${1}    Get Length    hello
+    log    ${1}
+
+4
+    ${table}    Set Variable    a    b    c    \    f
+    log    看看空
+    log    ${table[3]}
+    : FOR    ${var}    IN    @{table}
+    \    Run Keyword If    '${var}'==''    log    get kong
+
+5
+    Create Session    dqlc    http://testfund.10jqka.com.cn/publicapi
+    ${resp}=    Get Request    dqlc    /huaweiFundList/dqlc.txt
+    ${dict}    Set Variable    ${resp.json()}
+    log    定期理财
+    log    ${dict[0]}
+    ${dates}    Evaluate    [dates['date']for dates in $dict]
+    log    ${dates}
+    log    ${dates[0]}
+    : FOR    ${var}    IN    ${dates}
+    \    log    ${var}
+
+6
+    ${table}    Set Variable
+    log    ${table}
+    ${a}    Set Variable    2018-08-23
+    Comment    :FOR    ${var}    IN    ${table}
+    Comment    \    Run Keyword If    ${a}    ${var}
+    Comment    Set List Value    加元素
+    ${formal-time}    Evaluate    datetime.date.today()-datetime.timedelta(days=1)    datetime
+    ${aa}=    Convert To List    ${table}
+    Run Keyword If    '${formal-time}'=='${a}'    Insert Into List    ${aa}    0    ok
+    log    ${formal-time}
+    log    ${a}
+    log    ${aa}
+    Comment
+
+7
+    ${aa}=    Create List
+    Comment    ${aa}=    Convert To List    ${table}
+    Insert Into List    ${aa}    0    ok
+    log    ${aa}
+
+8
+    ${a}    Evaluate    datetime.date.today()    datetime
+    log    ${a}
+    ${b}    Evaluate    datetime.date.today()-datetime.timedelta(days=1)    datetime
+
+9
+    ${aa}=    Create List    a    b    c
+    ${a}=    Get Length    ${aa}
+    Should Contain    ${aa}    a
+    log    ${PREV_TEST_STATUS}
+
+Mail-test
+    ${data}    Create Dictionary    title=行情自动化    id=whw is best    mails=luchendong@myhexin.com    content=ok
+    Comment    ${addr}    requests.Post    http://testfund.10jqka.com.cn/nodetest/notice/sendspecialmail    json=${data}
+    ${addr}    requests.Post    http://testfund.10jqka.com.cn/nodetest/notice/sendspecialmail    ${data}
+    log    ${addr.content}
+
+Mail-test2
+    Comment    Create Session    mail    http://testfund.10jqka.com.cn/nodetest/notice/sendspecialmail
+    Comment    ${header}    Create Dictionary    content-type    /notice/sendspecialmail
+    Comment    ${SUITE_STATUS}
+    ${data}    Create Dictionary    title=爱基金行情接口自动化    id=whw is best    mails=luchendong@myhexin.com,wanghongwei@myhexin.com    content=${PREV_TEST_STATUS}
+    ${resp}    requests.Post    http://testfund.10jqka.com.cn/nodetest/notice/sendspecialmail    ${data}    #headers=${header}
+    log    ${resp.content}
+
+10
+    log    ${TEST_STATUS}
+    log    123
