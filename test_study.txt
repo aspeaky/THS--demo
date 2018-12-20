@@ -40,7 +40,7 @@ Resource          model.robot
     \    Run Keyword If    '${var}'==''    log    get kong
 
 5
-    Create Session    dqlc    http://testfund.10jqka.com.cn/publicapi
+    Create Session    dqlc    **********请求
     ${resp}=    Get Request    dqlc    /huaweiFundList/dqlc.txt
     ${dict}    Set Variable    ${resp.json()}
     log    定期理财
@@ -85,16 +85,16 @@ Resource          model.robot
 
 Mail-test
     ${data}    Create Dictionary    title=行情自动化    id=whw is best    mails=luchendong@myhexin.com    content=ok
-    Comment    ${addr}    requests.Post    http://testfund.10jqka.com.cn/nodetest/notice/sendspecialmail    json=${data}
-    ${addr}    requests.Post    http://testfund.10jqka.com.cn/nodetest/notice/sendspecialmail    ${data}
+    Comment    ${addr}    requests.Post    **********请求   json=${data}
+    ${addr}    requests.Post    **********请求    ${data}
     log    ${addr.content}
 
 Mail-test2
-    Comment    Create Session    mail    http://testfund.10jqka.com.cn/nodetest/notice/sendspecialmail
+    Comment    Create Session    mail    **********请求
     Comment    ${header}    Create Dictionary    content-type    /notice/sendspecialmail
     Comment    ${SUITE_STATUS}
-    ${data}    Create Dictionary    title=爱基金行情接口自动化    id=whw is best    mails=luchendong@myhexin.com,wanghongwei@myhexin.com    content=${PREV_TEST_STATUS}
-    ${resp}    requests.Post    http://testfund.10jqka.com.cn/nodetest/notice/sendspecialmail    ${data}    #headers=${header}
+    ${data}    Create Dictionary    title=爱基金行情接口自动化    id=whw is best    mails=    content=${PREV_TEST_STATUS}
+    ${resp}    requests.Post    **********请求    ${data}    #headers=${header}
     log    ${resp.content}
 
 10

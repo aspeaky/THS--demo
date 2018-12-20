@@ -7,7 +7,7 @@ Library           DateTime
 
 *** Test Cases ***
 shouye_get1
-    ${url}    Set Variable    https://fund.10jqka.com.cn/interface/net/hotfund
+    ${url}    Set Variable    **********请求
     ${data}    requests.Get    ${url}
     log    ${data}
     log    ${data.cookies}
@@ -15,13 +15,13 @@ shouye_get1
     log    event
 
 shouye_get2
-    Create Session    mail    http://testfund.10jqka.com.cn/nodetest/notice
-    ${data}    Create Dictionary    title='行情自动化'    id='whw is best'    mails='luchendong@myhexin.com'    content='ok'
+    Create Session    mail    **********请求
+    ${data}    Create Dictionary    title='行情自动化'    id='whw is best'    mails=''    content='ok'
     ${resp}=    Post Request    mail    /sendspecialmail    json=${data}
     log    ${resp.status_code}
 
 formal_1
-    Create Session    jj_000001    http://testfund.10jqka.com.cn/interface/net/index/0_000001
+    Create Session    jj_000001    **********请求
     ${resp}=    Get Request    jj_000001    /
     Should Be Equal As Strings    ${resp.status_code}    200
     log many    ${resp.json()}
@@ -38,8 +38,8 @@ formal_1
     Comment    Run Keyword If Test Failed    log    日期校验失败
 
 formal-all-dqlc-ts
-    Create Session    dqlc    http://testfund.10jqka.com.cn/publicapi
-    ${resp}=    Get Request    dqlc    /huaweiFundList/hbx.txt
+    Create Session    dqlc    **********请求
+    ${resp}=    Get Request    dqlc    
     log    定期理财
     Should Be Equal As Strings    ${resp.status_code}    200
     ${dict}    Set Variable    ${resp.json}
@@ -53,7 +53,7 @@ formal-all-dqlc-ts
     Comment    log    ${1}
 
 test
-    Create Session    dqlc    http://testfund.10jqka.com.cn/publicapi
+    Create Session    dqlc    **********请求
     ${resp}=    Get Request    dqlc    /huaweiFundList/dqlc.txt
     Comment    log    ${resp[0]}
     ${1}    Create List    ${resp}
@@ -62,10 +62,10 @@ test
     log    ${1[2]}
 
 test-for-content
-    Create Session    dqlc    http://testfund.10jqka.com.cn/publicapi
+    Create Session    dqlc    **********请求
     ${resp1}=    Get Request    dqlc    /huaweiFundList/dqlc.txt
     ${dict1}    Set Variable    ${resp1.json()}
-    Create Session    jj_000001    http://testfund.10jqka.com.cn/interface/net/index/0_000001
+    Create Session    jj_000001    **********请求
     ${resp2}=    Get Request    jj_000001    /
     ${dict2}    Set Variable    ${resp2.json()}
     log    ${dict1}
@@ -73,7 +73,7 @@ test-for-content
     log    ${dict2}
 
 formal-all-定期理财
-    Create Session    dqlc    http://fund.10jqka.com.cn/publicapi
+    Create Session    dqlc    **********请求
     ${resp}=    Get Request    dqlc    /huaweiFundList/dqlc.txt
     ${dict}    Set Variable    ${resp.json()}
     log    定期理财
@@ -91,7 +91,7 @@ formal-all-定期理财
     \    Comment    Comment    Should Contain    ${formal-time}    ${var}
 
 formal-余下所有基金
-    Create Session    dqlc    http://fund.10jqka.com.cn/publicapi
+    Create Session    dqlc    **********请求
     ${resp}=    Get Request    dqlc    /huaweiFundList/all.txt
     ${dict}    Set Variable    ${resp.json()}
     log    除定期理财和货币型基金
@@ -109,7 +109,7 @@ formal-余下所有基金
     \    Comment    Should Contain    ${formal-time}    ${var}
 
 formal-all-货币型
-    Create Session    dqlc    http://fund.10jqka.com.cn/publicapi
+    Create Session    dqlc    **********请求
     ${resp}=    Get Request    dqlc    /huaweiFundList/hbx.txt
     ${dict}    Set Variable    ${resp.json()}
     log    货币型

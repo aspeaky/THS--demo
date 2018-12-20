@@ -21,7 +21,7 @@ test1
     [Teardown]    end
 
 formal_定期理财_2.0
-    Create Session    dqlc    http://fund.10jqka.com.cn/publicapi
+    Create Session    dqlc    **********请求
     ${resp}=    Get Request    dqlc    /huaweiFundList/dqlc.txt
     ${dict}    Set Variable    ${resp.json()}
     ${time-normal}    Evaluate    datetime.date.today()-datetime.timedelta(days=1)    datetime
@@ -48,7 +48,7 @@ formal_定期理财_2.0
     Should Be Equal    ${other-length}    20
 
 formal_货币型_2.0
-    Create Session    dqlc    http://fund.10jqka.com.cn/publicapi
+    Create Session    dqlc    **********请求
     ${resp}=    Get Request    dqlc    /huaweiFundList/hbx.txt
     ${dict}    Set Variable    ${resp.json()}
     ${time-normal}    Evaluate    datetime.date.today()-datetime.timedelta(days=1)    datetime
@@ -75,7 +75,7 @@ formal_货币型_2.0
     Should Be Equal    ${other-length}    22
 
 formal_余下所有基金_2.0
-    Create Session    dqlc    http://fund.10jqka.com.cn/publicapi
+    Create Session    dqlc    **********请求
     ${resp}=    Get Request    dqlc    /huaweiFundList/all.txt
     ${dict}    Set Variable    ${resp.json()}
     ${time-normal}    Evaluate    datetime.date.today()-datetime.timedelta(days=1)    datetime
@@ -137,5 +137,5 @@ end
     ${message}    Catenate    ${log}    ${xinxi}
     log    ${xinxi}
     log    okko
-    ${data}    Create Dictionary    title=爱基金行情接口自动化    id=whw is best    mails=luchendong@myhexin.com,xuanqianping@myhexin.com,wengjianxiang@myhexin.com,liuwei@myhexin.com,shaoxuli@myhexin.com    content=${message}
-    ${resp}    requests.Post    http://testfund.10jqka.com.cn/nodetest/notice/sendspecialmail    ${data}    #headers=${header}
+    ${data}    Create Dictionary    title=爱基金行情接口自动化    id=whw is best    mails=    content=${message}
+    ${resp}    requests.Post    **********请求    ${data}    #headers=${header}
